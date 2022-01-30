@@ -1,0 +1,15 @@
+.image {
+  height: 80px;
+  width: 80px;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.main-container {
+  width: 90vw;
+
+  align-items: center;
+  justify-content: space-between;
+}
