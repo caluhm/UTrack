@@ -1,18 +1,21 @@
 import './App.css';
 import logo from './logo.png'
-import { Button, Stack, Dropdown, Card, ProgressBar } from 'react-bootstrap'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
+import { Button, Stack, Dropdown } from 'react-bootstrap'
 import Container from "react-bootstrap/Container"
 import AddAssignmentModal from './components/AddAssignmentModal'
 import AddModuleModal from './components/AddModuleModal'
 import { useState } from "react"
 import AssignmentCard from './components/AssignmentCard';
 import ModuleCard from './components/ModuleCard';
+import { useAssignments } from './contexts/AssignmentsContext'
+import { AssignmentsProvider } from './contexts/AssignmentsContext';
+
 
 function App() {
   const [showAddModuleModal, setShowAddModuleModal] = useState(false)
   const [showAddAssignmentModal, setShowAddAssignmentModal] = useState(false)
+  const { assignments } = useAssignments()
+  
   return (
     <>
       <Container>
@@ -38,7 +41,7 @@ function App() {
         <AddModuleModal 
           show={showAddModuleModal}
           handleClose={() => setShowAddModuleModal(false)}
-        />  
+        /> 
         <div
           style={{
             display: "grid",
@@ -48,11 +51,15 @@ function App() {
           }}
         >
         <ModuleCard />
-        <AssignmentCard />
-        <AssignmentCard />
-        <AssignmentCard />
-        <AssignmentCard />
-        <AssignmentCard />
+        {assignments.map(assignment => 
+        <AssignmentCard
+          name={assignment.name}
+          module={assignment.module}
+          date={assignment.date}
+          percent={assignment.percent}
+          colour={assignment.module.colour}
+        />
+        )}
         </div>
             
         

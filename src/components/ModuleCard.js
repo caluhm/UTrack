@@ -1,7 +1,10 @@
-import { Button, Stack, Card, ProgressBar } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
+import { useAssignments } from '../contexts/AssignmentsContext'
 
-export default function ModuleCard ({}) {
+export default function ModuleCard ({
 
+}) {
+const { modules, deleteModule } = useAssignments()
   return (
       <Card>
         <Card.Body>
@@ -9,7 +12,23 @@ export default function ModuleCard ({}) {
             <div className="me-2">Modules</div>
           </Card.Title>
           <hr/>
-          <div className="mb-3 fw-normal">Cyber Security <Button variant="danger" style={{ "margin-left": "1rem" }}>
+          {modules.map(module => (
+            <div className="mb-3 fw-normal">
+              {module.name}
+              <Button 
+                onClick={() => deleteModule(module)}
+                variant="danger" 
+                style={{ "margin-left": "1rem", "background-color": module.colour, "borderBlockColor": "black" }} 
+              >
+                &#10005;
+              </Button>
+              
+            </div>
+          ))}       
+
+            
+            
+          {/*<div className="mb-3 fw-normal">Cyber Security <Button variant="danger" style={{ "margin-left": "1rem" }}>
                 &#10005;
               </Button></div>
           <div className="mb-3 fw-normal">Operating Systems <Button variant="danger" style={{ "margin-left": "1rem" }}>
@@ -17,7 +36,7 @@ export default function ModuleCard ({}) {
               </Button></div>
           <div className="mb-3 fw-normal">Team Project <Button variant="danger" style={{ "margin-left": "1rem" }}>
                 &#10005;
-              </Button></div>
+        </Button></div>*/}
         </Card.Body>
     </Card>
     )
